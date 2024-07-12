@@ -18,12 +18,16 @@ const Edit = () => {
         username: "",
     })
     const [newPfp, setNewPfp] = useState<File | undefined>(undefined)
-    const [id, setId] = useState<string | null>(null)
+    const [id, setId] = useState<string | undefined>(undefined)
 
     useEffect(() => {
         const getData = async () => {
             const {data: {user}} = await supabase.auth.getUser();
-            const id = user?.id ?? undefined;
+            const id = user?.id
+            if (!id) {
+                console.error('Error fetching user id');
+                return;
+            }
             setId(id)
             const {data, error} = await supabase.from('profiles').select('*').eq('id', id).single()
             if (error) {
@@ -103,8 +107,10 @@ const Edit = () => {
             <div className="flex flex-col items-center justify-center">
                 <img src="https://csabmhnamijitrwiiaga.supabase.co/storage/v1/object/public/posts/Screenshot_2024_07_11_at_11.33.42_PM.png?t=2024-07-12T03%3A38%3A06.326Z" alt="logo" className="h-24 w-24 mt-4" />
                 <form className="flex flex-col shadow-md bg-white rounded-md shadow-black p-4 w-80 m-auto items-center justify-center mt-12">
-                    {newPfp ? (<img className="rounded-full h-24 w-24 mb-8" src={URL.createObjectURL(newPfp)} alt="Profile Picture" />) : (
-                    <img className="rounded-full h-24 w-24 mb-8" src={data.pfp} alt="Profile Picture" />
+                {newPfp ? (
+                    <img className="rounded-full h-24 w-24 mb-8" src={URL.createObjectURL(newPfp)} alt="Profile Picture" onError={(e) => e.currentTarget.src = 'default-placeholder.png'} />
+                    ) : (
+                    <img className="rounded-full h-24 w-24 mb-8" src={data.pfp || 'default-placeholder.png'} alt="Profile Picture" onError={(e) => e.currentTarget.src = 'https://fmljhnjkmdazdaaifzha.supabase.co/storage/v1/object/public/pfp/basic-default-pfp-pxi77qv5o0zuz8j3.jpg'} />
                     )}
                     <p className="my-2">Select new profile picture</p>
                     <Input type="file" onChange={newFile} name="file" />
