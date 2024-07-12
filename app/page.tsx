@@ -5,8 +5,14 @@ import { Vortex } from "@/components/ui/vortex";
 import { AuroraBackground } from "@/components/aurora-background";
 import { motion } from "framer-motion";
 import { Calendar } from "@/components/ui/calendar"
+import { useRouter } from "next/navigation";
 
 export default async function Index() {
+  const router = useRouter();
+
+  const goToLogin = () => {
+    router.push("/login");
+  }
   return (
         <div className="flex flex-col items-center justify-center h-full w-screen">       
           <div className="lg:h-[40rem] sm:h-[18rem] sm:max-w-screen-sm max-w-[90%] rounded-md flex md:items-center md:justify-center bg-black/[0.96] antialiased bg-grid-white/[0.02] relative overflow-hidden px-0">
@@ -34,7 +40,7 @@ export default async function Index() {
               <div className="text-3xl md:text-7xl font-bold text-white text-center">
               Trying to clear up your closet?
               </div>
-              <button className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
+              <button onClick={goToLogin} className="bg-black dark:bg-white rounded-full w-fit text-white dark:text-black px-4 py-2">
               Sell Now
               </button>
             </motion.div>
@@ -77,7 +83,7 @@ export default async function Index() {
                 Start selling your trash and finding your next treasure. 
               </p>
               <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-                <button className="px-4 py-2 bg-green-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
+                <button onClick={goToLogin} className="px-4 py-2 bg-green-600 hover:bg-blue-700 transition duration-200 rounded-lg text-white shadow-[0px_2px_0px_0px_#FFFFFF40_inset]">
                   Get Started
                 </button>
               </div>
