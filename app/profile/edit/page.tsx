@@ -17,13 +17,13 @@ const Edit = () => {
         pfp: "",
         username: "",
     })
-    const [newPfp, setNewPfp] = useState<File | undefined>()
-    const [id, setId] = useState<string | undefined>()
+    const [newPfp, setNewPfp] = useState<File | undefined>(undefined)
+    const [id, setId] = useState<string | null>(null)
 
     useEffect(() => {
         const getData = async () => {
             const {data: {user}} = await supabase.auth.getUser();
-            const id = user?.id;
+            const id = user?.id ?? undefined;
             setId(id)
             const {data, error} = await supabase.from('profiles').select('*').eq('id', id).single()
             if (error) {
@@ -100,14 +100,19 @@ const Edit = () => {
 
     return (
         <>   
-            <form className="flex flex-col border-2 shadow-md shadow-black p-4 w-96 m-auto items-center justify-center mt-12 space-y-4">
-                <img className="rounded-full h-24 w-24 mb-4" src={data.pfp ?? undefined} alt="Profile Picture" />
-                <p>Select new profile picture</p>
-                <Input type="file" onChange={newFile} name="file" />
-                <p>Display name:</p>
-                <Input name="username" onChange={changeInfo} value={data.username ?? ""} />
-                <Button type="submit" onClick={(e) => edit(e)}>Confirm changes </Button>
-            </form>
+            <div className="flex flex-col items-center justify-center">
+                <img src="https://csabmhnamijitrwiiaga.supabase.co/storage/v1/object/public/posts/Screenshot_2024_07_11_at_11.33.42_PM.png?t=2024-07-12T03%3A38%3A06.326Z" alt="logo" className="h-24 w-24 mt-4" />
+                <form className="flex flex-col shadow-md bg-white rounded-md shadow-black p-4 w-80 m-auto items-center justify-center mt-12">
+                    {newPfp ? (<img className="rounded-full h-24 w-24 mb-8" src={URL.createObjectURL(newPfp)} alt="Profile Picture" />) : (
+                    <img className="rounded-full h-24 w-24 mb-8" src={data.pfp} alt="Profile Picture" />
+                    )}
+                    <p className="my-2">Select new profile picture</p>
+                    <Input type="file" onChange={newFile} name="file" />
+                    <p className="my-2">Display name:</p>
+                    <Input name="username" className="mb-8" defaultValue={data.username ?? ""} onChange={changeInfo} value={data.username ?? ""} />
+                    <Button type="submit" onClick={(e) => edit(e)}>Confirm changes </Button>
+                </form>
+            </div>
         </>
     )
 }

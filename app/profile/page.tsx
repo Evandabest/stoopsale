@@ -27,10 +27,13 @@ const Profile = async () => {
 
     return (
         <>
-        <form className="flex flex-col border-2 shadow-md shadow-black p-4 w-96 m-auto items-center justify-center mt-12">
-            <img className="rounded-full mb-8 h-24 w-24" src={data[0].pfp} alt="Profile Picture" />
-            <p>Display name: </p>
-            <p>{data[0].username}</p>
+        <div className="flex flex-col items-center justify-center">
+            <img src="https://csabmhnamijitrwiiaga.supabase.co/storage/v1/object/public/posts/Screenshot_2024_07_11_at_11.33.42_PM.png?t=2024-07-12T03%3A38%3A06.326Z" alt="logo" className="h-24 w-24 mt-4" />
+            <form className="flex flex-col shadow-md bg-white rounded-md shadow-black p-4 w-80 m-auto items-center justify-center mt-12">
+                <img className="rounded-full mb-8 h-24 w-24" src={data[0].pfp} alt="Profile Picture" />
+                <p className="mb-4">Display name: {data[0].username}</p>
+                <Button formAction={goToEdit}>Edit</Button>
+            </form>
             {data[0].posts &&  data[0].posts.length > 0 ? (
                 <>
                     {data[0].posts.map((post: any) => (
@@ -40,7 +43,7 @@ const Profile = async () => {
             ) : (
                 <p>No posts</p>
             )}
-        </form>
+        </div>
         </>
     )
 }

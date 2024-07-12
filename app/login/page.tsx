@@ -29,6 +29,8 @@ export default function SignupForm() {
   };
 
   return (
+    <div className="flex flex-col items-center justify-center">
+    <img src="https://csabmhnamijitrwiiaga.supabase.co/storage/v1/object/public/posts/Screenshot_2024_07_11_at_11.33.42_PM.png?t=2024-07-12T03%3A38%3A06.326Z" alt="logo" className="h-24 w-24 mt-4" />
     <div className=" max-w-md mt-32 shadow-md shadow-black w-80 rounded-none md:rounded-2xl p-4 md:p-8 bg-white dark:bg-black">
       <h2 className="font-bold text-xl text-center text-neutral-800 dark:text-neutral-200">
         Welcome to Stoop Sale Snipers
@@ -66,6 +68,7 @@ export default function SignupForm() {
 
 
       </form>
+    </div>
     </div>
   );
 }

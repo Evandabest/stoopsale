@@ -118,7 +118,7 @@ const Post = () => {
             image: updatedProfile.image,
             description: updatedProfile.description,
             askingPrice: updatedProfile.askingPrice,
-            fcfs: updatedProfile.fcfs,
+            fcfs: first,
             bids: updatedProfile.bids,
             uid: updatedProfile.uid,
         })
@@ -143,20 +143,24 @@ const Post = () => {
 
     return (
         <>
-            <h1>Post your finds</h1>
-            <form onSubmit={handleSumbit}>
-                {postPic && <img src={URL.createObjectURL(postPic)} alt="Post Picture" />}
-                <Input onChange={newFile} type="file" name="image" required />
-                <Textarea onChange={(e) => changeInfo(e)} name="description" required />
-                <Input onChange={(e) => changeInfo(e)} type="number" name="Asking price" required />
-                <p>First come first serve?</p>
-                <Switch 
-                    name="fcfs"
-                    checked={first}
-                    onCheckedChange={changeFirst}
-                />
-                <Button type="submit">Submit</Button>
-            </form>
+            <div className="flex flex-col items-center justify-center">
+                <img src="https://csabmhnamijitrwiiaga.supabase.co/storage/v1/object/public/posts/Screenshot_2024_07_11_at_11.33.42_PM.png?t=2024-07-12T03%3A38%3A06.326Z" alt="logo" className="h-24 w-24 mt-4" />
+                <h1 className= "text-white my-3">Post your old clothes!</h1>
+                <form className="flex flex-col items-center" onSubmit={handleSumbit}>
+                    {postPic && <img className = "w-48 h-48"src={URL.createObjectURL(postPic)} alt="Post Picture" />}
+                    <Input onChange={newFile} type="file" name="image" required />
+                    <Textarea placeholder="Write a description!" onChange={(e) => changeInfo(e)} name="description" required />
+                    <Input placeholder="Asking price" onChange={(e) => changeInfo(e)} type="number" name="Asking price" required />
+                    <p className="text-white my-4">First come first serve?</p>
+                    <Switch 
+                        name="fcfs"
+                        checked={first}
+                        className=""
+                        onCheckedChange={changeFirst}
+                    />
+                    <Button className="mt-4" type="submit">Submit</Button>
+                </form>
+            </div>
         </>
     )
 }
