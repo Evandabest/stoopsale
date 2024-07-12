@@ -74,6 +74,7 @@ const Post = () => {
             ...field,
             [name]: value
         })
+        console.log(field)
     }
 
     const newFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,7 +151,7 @@ const Post = () => {
                     {postPic && <img className = "w-48 h-48"src={URL.createObjectURL(postPic)} alt="Post Picture" />}
                     <Input onChange={newFile} type="file" name="image" required />
                     <Textarea placeholder="Write a description!" onChange={(e) => changeInfo(e)} name="description" required />
-                    <Input placeholder="Asking price" onChange={(e) => changeInfo(e)} type="number" name="Asking price" required />
+                    <Input placeholder="Asking price" onChange={(e) => changeInfo(e)} type="number" name="askingPrice" required />
                     <p className="text-white my-4">First come first serve?</p>
                     <Switch 
                         name="fcfs"
